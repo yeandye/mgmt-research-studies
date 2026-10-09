@@ -43,6 +43,9 @@ header .lede{color:var(--muted);font-size:1.05rem}
 .rule span{background:var(--gold-soft);color:var(--ink);border:1px solid color-mix(in srgb,var(--gold) 40%,transparent);border-radius:999px;padding:4px 12px;font-size:.92rem}
 .rule b{font-family:var(--mono);font-weight:500}
 
+.join{background:var(--garnet-soft);border:1px solid color-mix(in srgb,var(--garnet) 35%,transparent);border-radius:8px;padding:18px 20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 20px}
+.join .btn{font-size:1.05rem;padding:11px 22px}
+
 /* window strip */
 .windows{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
 .win{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:grid;gap:4px}
@@ -94,6 +97,15 @@ footer{color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);padd
 </head>
 <body>
 <div class="wrap">
+  <section class="join" id="join" aria-labelledby="join-h" hidden>
+    <div style="display:grid;gap:4px;min-width:0">
+      <span class="eyebrow">Start here</span>
+      <h2 id="join-h">Join the research pool</h2>
+      <p>Sign up once each term before you take any study. It takes about two minutes.</p>
+    </div>
+    <a class="btn" id="join-btn" target="_blank" rel="noopener">Join the pool</a>
+  </section>
+
   <header>
     <span class="eyebrow">Florida State University · Department of Management</span>
     <h1>Research Studies, <span id="term-h">Spring 2027</span></h1>
@@ -102,10 +114,6 @@ footer{color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);padd
       <span>Each 30 minutes earns <b>0.5%</b></span>
       <span>Your course offers up to <b>1%</b></span>
       <span>One 30-minute session per window</span>
-    </div>
-    <div class="contact" id="join" hidden>
-      <a class="btn" id="join-btn" target="_blank" rel="noopener">Join the pool</a>
-      <span class="due">New this term? Sign up once before you take a study.</span>
     </div>
   </header>
 
