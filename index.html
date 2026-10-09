@@ -239,7 +239,8 @@ footer{color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);padd
       if (s.test) side.appendChild(el('span','pill ex','Test'));
       side.appendChild(el('span','pill '+pcls,label));
       var go = el('a','btn','Start study');
-      if (open && inWindow && (w || s.test) && s.url){ go.href=s.url; go.target='_blank'; go.rel='noopener'; }
+      var cin = (draft||state).checkinUrl;
+      if (open && inWindow && (w || s.test) && s.url){ go.href = cin ? cin + '?next=' + encodeURIComponent(s.url) : s.url; go.target='_blank'; go.rel='noopener'; }
       else { go.setAttribute('aria-disabled','true'); go.removeAttribute('href'); }
       side.appendChild(go);
       card.appendChild(main); card.appendChild(side); box.appendChild(card);

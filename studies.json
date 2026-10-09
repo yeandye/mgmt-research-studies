@@ -4,9 +4,11 @@
   "email": "",
   "creditUrl": "https://fsu.qualtrics.com/jfe/form/SV_dp9TqKpojzTaSKG",
   "signupUrl": "https://fsu.qualtrics.com/jfe/form/SV_9QYhC74x1ZdzPNA",
+  "checkinUrl": "https://fsu.qualtrics.com/jfe/form/SV_0JqLXXBiWmdrtae",
   "studies": [
     {
       "id": "test1",
+      "number": 1,
       "title": "Pool test study",
       "researcher": "Research pool coordinator",
       "minutes": 30,
