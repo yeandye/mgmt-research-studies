@@ -4,5 +4,18 @@
   "email": "",
   "creditUrl": "https://fsu.qualtrics.com/jfe/form/SV_dp9TqKpojzTaSKG",
   "signupUrl": "https://fsu.qualtrics.com/jfe/form/SV_9QYhC74x1ZdzPNA",
-  "studies": []
+  "studies": [
+    {
+      "id": "test1",
+      "title": "Pool test study",
+      "researcher": "Research pool coordinator",
+      "minutes": 30,
+      "window": "1",
+      "status": "open",
+      "test": true,
+      "url": "https://fsu.qualtrics.com/jfe/form/SV_0TFtzemeHzIqMaG",
+      "about": "A one-question test of the research pool. After you answer, you go straight to the credit form with this study already filled in.",
+      "eligibility": "For testing only. Remove this study before the term starts."
+    }
+  ]
 }

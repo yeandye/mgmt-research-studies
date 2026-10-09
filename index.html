@@ -234,10 +234,12 @@ footer{color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);padd
       var open = s.status==='open', inWindow = !w || s.window===w;
       var label = s.status==='full' ? 'Full' : s.status==='closed' ? 'Closed' : (w && !inWindow ? 'Opens in '+WINDOWS[s.window].label : (!w ? 'Opens soon' : 'Open'));
       var pcls = s.status==='full' ? 'full' : s.status==='closed' ? 'closed' : (w && inWindow ? 'open' : 'soon');
+      if (s.test){ open = true; inWindow = true; label = 'Open for testing'; pcls = 'open'; }
       if (s.example) side.appendChild(el('span','pill ex','Example'));
+      if (s.test) side.appendChild(el('span','pill ex','Test'));
       side.appendChild(el('span','pill '+pcls,label));
       var go = el('a','btn','Start study');
-      if (open && inWindow && w && s.url){ go.href=s.url; go.target='_blank'; go.rel='noopener'; }
+      if (open && inWindow && (w || s.test) && s.url){ go.href=s.url; go.target='_blank'; go.rel='noopener'; }
       else { go.setAttribute('aria-disabled','true'); go.removeAttribute('href'); }
       side.appendChild(go);
       card.appendChild(main); card.appendChild(side); box.appendChild(card);
