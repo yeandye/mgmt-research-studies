@@ -103,6 +103,10 @@ footer{color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);padd
       <span>Your course offers up to <b>1%</b></span>
       <span>One 30-minute session per window</span>
     </div>
+    <div class="contact" id="join" hidden>
+      <a class="btn" id="join-btn" target="_blank" rel="noopener">Join the pool</a>
+      <span class="due">New this term? Sign up once before you take a study.</span>
+    </div>
   </header>
 
   <section aria-labelledby="win-h" style="display:grid;gap:12px">
@@ -129,6 +133,7 @@ footer{color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);padd
   <section aria-labelledby="credit-h">
     <h2 id="credit-h">How you get credit</h2>
     <ol class="steps">
+      <li><div><strong>Join the pool once per term.</strong> The sign-up form asks for your name, FSU ID and the participating courses you are taking.</div></li>
       <li><div><strong>Pick a study and open its link.</strong> Read the consent page. You can stop at any point and still get credit for the time you spent.</div></li>
       <li><div><strong>Use the credit link when you finish or stop.</strong> It opens a separate short form for your name, FSU ID and the course you want the credit in. Your study answers are never stored with your name.</div></li>
       <li><div><strong>Your instructor sees only your total.</strong> The pool administrator sends each instructor students' credit totals after each window, never which studies you took.</div></li>
@@ -236,7 +241,9 @@ footer{color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);padd
     document.getElementById('term-h').textContent = s.term || 'Spring 2027';
     c.textContent='';
     t.textContent = (s.coordinator ? 'Contact '+s.coordinator+', the research pool coordinator.' : 'Contact the research pool coordinator.') +
-      ' If a study ended before you reached its credit link, use the backup credit form and name the study.';
+      ' If a study ended before you reached its credit link, use the credit form below and name the study.';
+    var j = document.getElementById('join');
+    if (s.signupUrl){ document.getElementById('join-btn').href = s.signupUrl; j.hidden = false; } else { j.hidden = true; }
     if (s.email){
       var m = el('span','mono',s.email); c.appendChild(m);
       var b = el('button','copy','Copy email'); b.type='button';
@@ -246,7 +253,7 @@ footer{color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);padd
       });
       c.appendChild(b);
     }
-    if (s.creditUrl){ var a = el('a','btn ghost','Backup credit form'); a.href=s.creditUrl; a.target='_blank'; a.rel='noopener'; c.appendChild(a); }
+    if (s.creditUrl){ var a = el('a','btn ghost','Credit form'); a.href=s.creditUrl; a.target='_blank'; a.rel='noopener'; c.appendChild(a); }
   }
   function selectText(n){ var r=document.createRange(); r.selectNodeContents(n); var sel=getSelection(); sel.removeAllRanges(); sel.addRange(r); }
 

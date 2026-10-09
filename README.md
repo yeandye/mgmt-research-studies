@@ -25,4 +25,5 @@ Edit `studies.json`. Each study looks like this:
 
 - `window`: `"1"` (Jan 19 – Mar 5) or `"2"` (Mar 22 – Apr 16)
 - `status`: `"open"`, `"full"` or `"closed"`
-- Also set `coordinator`, `email` and `creditUrl` (the backup credit form) at the top of the file.
+- Also set `coordinator`, `email`, `creditUrl` (the Qualtrics credit form) and `signupUrl` (the Qualtrics pool sign-up, shown as "Join the pool") at the top of the file.
+- In each study's Qualtrics survey, set the end-of-survey redirect to the credit form with the study title added, for example `https://fsu.qualtrics.com/jfe/form/SV_dp9TqKpojzTaSKG?study=Team%20decision%20exercise`. The credit form fills in the study title from that link.
