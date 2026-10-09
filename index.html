@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Management Research Studies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@600;700;800&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0}
+[hidden]{display:none!important}
+/* Layout: a single reading column; window status strip, then the study board, then how credit works. */
+:root{
+  --bg:#f6f5f3; --surface:#ffffff; --ink:#22191b; --muted:#6b5f62; --line:#e3dddd;
+  --garnet:#782f40; --garnet-soft:#f3e6e9; --gold:#a8873a; --gold-soft:#f6efdc;
+  --ok:#2f6b46; --ok-soft:#e3f1e8; --warn:#8a5a12; --warn-soft:#f8ecd6; --off:#6b6b6b; --off-soft:#ececec;
+  --display:"Libre Franklin","Helvetica Neue",Arial,sans-serif;
+  --body:"Source Sans 3","Segoe UI",Roboto,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#171213; --surface:#211a1c; --ink:#f1eaeb; --muted:#b3a5a8; --line:#3a2f32;
+  --garnet:#d98a9b; --garnet-soft:#3a2328; --gold:#d8b76a; --gold-soft:#3a3120;
+  --ok:#7fc79a; --ok-soft:#1f3328; --warn:#e6b46a; --warn-soft:#3a2d18; --off:#a5a5a5; --off-soft:#2c2c2c; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#171213; --surface:#211a1c; --ink:#f1eaeb; --muted:#b3a5a8; --line:#3a2f32;
+  --garnet:#d98a9b; --garnet-soft:#3a2328; --gold:#d8b76a; --gold-soft:#3a3120;
+  --ok:#7fc79a; --ok-soft:#1f3328; --warn:#e6b46a; --warn-soft:#3a2d18; --off:#a5a5a5; --off-soft:#2c2c2c; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 var(--body)}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:28px 64px;display:grid;gap:36px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(1.8rem,4.5vw,2.5rem);font-weight:800;letter-spacing:-.01em}
+h2{font-size:1.3rem;font-weight:700}
+h3{font-size:1.06rem;font-weight:700}
+p{margin:0;max-width:65ch}
+a{color:var(--garnet)}
+.eyebrow{font:600 .75rem/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--garnet)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+header{display:grid;gap:12px;border-bottom:3px solid var(--garnet);padding-bottom:22px}
+header .lede{color:var(--muted);font-size:1.05rem}
+.rule{display:flex;flex-wrap:wrap;gap:10px}
+.rule span{background:var(--gold-soft);color:var(--ink);border:1px solid color-mix(in srgb,var(--gold) 40%,transparent);border-radius:999px;padding:4px 12px;font-size:.92rem}
+.rule b{font-family:var(--mono);font-weight:500}
+
+/* window strip */
+.windows{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.win{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:grid;gap:4px}
+.win.now{border-color:var(--garnet);box-shadow:inset 4px 0 0 var(--garnet)}
+.win .dates{font-family:var(--mono);font-size:.9rem}
+.win .due{color:var(--muted);font-size:.92rem}
+.status-line{font-weight:600}
+
+/* board */
+.board-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{font:600 .92rem var(--body);border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:6px;padding:7px 12px;cursor:pointer}
+.tab[aria-pressed="true"]{background:var(--garnet);border-color:var(--garnet);color:var(--surface)}
+.tab:focus-visible,.btn:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.list{display:grid;gap:12px;margin-top:14px}
+.study{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px 18px;display:grid;grid-template-columns:1fr auto;gap:10px 18px;align-items:start}
+.study > div{min-width:0}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;color:var(--muted);font-size:.9rem;margin-top:4px}
+.about{margin-top:8px}
+.elig{margin-top:6px;font-size:.92rem;color:var(--muted)}
+.side{display:grid;gap:8px;justify-items:end;text-align:right}
+.credit{font-family:var(--mono);font-size:1.15rem;color:var(--garnet)}
+.pill{font:600 .78rem/1 var(--body);letter-spacing:.04em;text-transform:uppercase;border-radius:999px;padding:5px 10px}
+.pill.open{background:var(--ok-soft);color:var(--ok)}
+.pill.full{background:var(--warn-soft);color:var(--warn)}
+.pill.closed,.pill.soon{background:var(--off-soft);color:var(--off)}
+.ex{background:var(--gold-soft);color:var(--warn)}
+.btn{display:inline-block;font:600 .95rem var(--body);border-radius:6px;padding:9px 16px;border:1px solid var(--garnet);background:var(--garnet);color:var(--surface);text-decoration:none;cursor:pointer;white-space:nowrap}
+.btn.ghost{background:transparent;color:var(--garnet)}
+.btn[aria-disabled="true"]{background:var(--off-soft);border-color:var(--off-soft);color:var(--off);pointer-events:none}
+.empty{background:var(--surface);border:1px dashed var(--line);border-radius:8px;padding:22px;color:var(--muted);display:grid;gap:6px}
+.empty strong{color:var(--ink)}
+
+/* credit steps */
+.steps{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:12px;counter-reset:s}
+.steps li{counter-increment:s;display:grid;grid-template-columns:2rem 1fr;gap:10px;align-items:start}
+.steps li::before{content:counter(s);font:500 .9rem/2rem var(--mono);text-align:center;width:2rem;height:2rem;border-radius:50%;background:var(--garnet-soft);color:var(--garnet)}
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:6px}
+.note{border-top:2px solid var(--line);padding-top:10px;display:grid;gap:4px}
+.note p{font-size:.95rem;color:var(--muted)}
+.contact{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.copy{font:600 .8rem var(--body);border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:5px;padding:3px 8px;cursor:pointer}
+footer{color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);padding-top:16px}
+
+@media (max-width:560px){.study{grid-template-columns:1fr}.side{justify-items:start;text-align:left;grid-auto-flow:column;align-items:center;justify-content:start}}
+@media (prefers-reduced-motion:no-preference){.btn,.tab{transition:background .15s,color .15s}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Florida State University · Department of Management</span>
+    <h1>Research Studies, <span id="term-h">Spring 2027</span></h1>
+    <p class="lede">Take part in faculty and doctoral research for course credit. Every study is reviewed by FSU's Institutional Review Board, runs online, and takes about 30 minutes.</p>
+    <div class="rule">
+      <span>Each 30 minutes earns <b>0.5%</b></span>
+      <span>Your course offers up to <b>1%</b></span>
+      <span>One 30-minute session per window</span>
+    </div>
+  </header>
+
+  <section aria-labelledby="win-h" style="display:grid;gap:12px">
+    <h2 id="win-h">When studies are open</h2>
+    <p class="status-line" id="status-line"></p>
+    <div class="windows" id="windows"></div>
+  </section>
+
+  <section aria-labelledby="board-h">
+    <div class="board-head">
+      <div style="display:grid;gap:4px">
+        <h2 id="board-h">Studies</h2>
+        <p class="msg">Studies are first come, first served. A study closes when it reaches its number of participants.</p>
+      </div>
+      <div class="tabs" role="group" aria-label="Show studies for">
+        <button class="tab" id="tab-1" data-w="1" aria-pressed="false">Window 1</button>
+        <button class="tab" id="tab-2" data-w="2" aria-pressed="false">Window 2</button>
+        <button class="tab" id="tab-all" data-w="all" aria-pressed="false">All</button>
+      </div>
+    </div>
+    <div class="list" id="list" aria-live="polite"></div>
+  </section>
+
+  <section aria-labelledby="credit-h">
+    <h2 id="credit-h">How you get credit</h2>
+    <ol class="steps">
+      <li><div><strong>Pick a study and open its link.</strong> Read the consent page. You can stop at any point and still get credit for the time you spent.</div></li>
+      <li><div><strong>Use the credit link when you finish or stop.</strong> It opens a separate short form for your name, FSU ID and the course you want the credit in. Your study answers are never stored with your name.</div></li>
+      <li><div><strong>Your instructor sees only your total.</strong> The pool administrator sends each instructor students' credit totals after each window, never which studies you took.</div></li>
+    </ol>
+    <div class="notes" style="margin-top:20px">
+      <div class="note"><h3>One course per study</h3><p>If you are in two participating courses, credit from a study counts toward only one of them. Do not take the same study twice.</p></div>
+      <div class="note"><h3>Prefer not to take part?</h3><p>You can earn the same credit through an alternative assignment set by your instructor. Check your syllabus; it is due by the end of Window 2.</p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="help-h" style="display:grid;gap:10px">
+    <h2 id="help-h">Questions or missing credit</h2>
+    <p id="help-text"></p>
+    <div class="contact" id="contact"></div>
+  </section>
+
+  <footer>Participation is voluntary. Students under 18 cannot take part unless a study is approved for minors. Faculty do not recruit their own current students in person for their own studies.</footer>
+</div>
+
+<script>
+(function(){
+  var WINDOWS = {
+    "1": {label:"Window 1", start:"2027-01-19", end:"2027-03-05", dates:"Jan 19 – Mar 5", due:"First 0.5% due Friday, March 5"},
+    "2": {label:"Window 2", start:"2027-03-22", end:"2027-04-16", dates:"Mar 22 – Apr 16", due:"Second 0.5% and alternative assignments due Friday, April 16"}
+  };
+  var EXAMPLES = [
+    {id:"ex1",title:"Reactions to coworker requests",researcher:"Example lab",minutes:15,window:"1",status:"open",url:"",about:"Read short workplace scenarios and answer questions about how you would respond.",eligibility:"Open to all students 18 and older.",irb:"",example:true},
+    {id:"ex2",title:"Team decision exercise",researcher:"Example lab",minutes:30,window:"2",status:"full",url:"",about:"Work through a short decision task and rate your confidence.",eligibility:"",irb:"",example:true}
+  ];
+
+  var state = {term:"Spring 2027", coordinator:"", email:"", creditUrl:"", studies:[]};
+  var draft = null, preview = false;
+
+  function el(tag, cls, text){ var n=document.createElement(tag); if(cls) n.className=cls; if(text!=null) n.textContent=text; return n; }
+  function day(s){ var p=s.split('-'); return new Date(+p[0], +p[1]-1, +p[2]); }
+  function today(){ var d=new Date(); return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+
+  function phase(){
+    var t = today(), w1=WINDOWS["1"], w2=WINDOWS["2"];
+    if (t < day(w1.start)) return {w:"1", text:"Studies open Tuesday, January 19. You will complete one 30-minute session in each window."};
+    if (t <= day(w1.end)) return {w:"1", now:"1", text:"Window 1 is open. Finish one 30-minute session by Friday, March 5."};
+    if (t < day(w2.start)) return {w:"2", text:"No studies are open during week 10 and spring break. Window 2 opens Monday, March 22."};
+    if (t <= day(w2.end)) return {w:"2", now:"2", text:"Window 2 is open. Finish your second 30-minute session by Friday, April 16."};
+    return {w:"all", text:"Studies for this term are closed. Questions about missing credit go to the coordinator below."};
+  }
+
+  var current = phase(), view = current.w;
+
+  function renderWindows(){
+    var box = document.getElementById('windows'); box.textContent='';
+    document.getElementById('status-line').textContent = current.text;
+    ["1","2"].forEach(function(k){
+      var w = WINDOWS[k], c = el('div','win'+(current.now===k?' now':''));
+      var top = el('div'); top.style.cssText='display:flex;justify-content:space-between;gap:8px;align-items:center';
+      top.appendChild(el('h3',null,w.label));
+      if (current.now===k){ var p=el('span','pill open','Open now'); top.appendChild(p); }
+      c.appendChild(top); c.appendChild(el('span','dates',w.dates)); c.appendChild(el('span','due',w.due));
+      box.appendChild(c);
+    });
+  }
+
+  function studies(){ var s = (draft||state).studies.slice(); if (preview) s = s.concat(EXAMPLES); return s; }
+
+  function renderBoard(){
+    document.querySelectorAll('.tab').forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.w===view)); });
+    var box = document.getElementById('list'); box.textContent='';
+    var order = {open:0, full:1, closed:2};
+    var items = studies().filter(function(s){ return view==='all' || s.window===view; })
+      .sort(function(a,b){ return (order[a.status]||0)-(order[b.status]||0); });
+    if (!items.length){
+      var e = el('div','empty');
+      e.appendChild(el('strong',null, view==='all' ? 'No studies are posted yet.' : 'No studies are posted for '+WINDOWS[view].label+' yet.'));
+      e.appendChild(el('span',null,'Studies appear here as researchers post them. Check back once the window opens.'));
+      box.appendChild(e); return;
+    }
+    var w = current.now;
+    items.forEach(function(s){
+      var card = el('article','study'), main = el('div');
+      main.appendChild(el('h3',null,s.title||'Untitled study'));
+      var meta = el('div','meta');
+      meta.appendChild(el('span','mono','30 min'));
+      meta.appendChild(el('span',null,WINDOWS[s.window] ? WINDOWS[s.window].label : ''));
+      if (s.researcher) meta.appendChild(el('span',null,s.researcher));
+      if (s.irb) meta.appendChild(el('span','mono','IRB '+s.irb));
+      main.appendChild(meta);
+      if (s.about) main.appendChild(el('p','about',s.about));
+      if (s.eligibility) main.appendChild(el('p','elig',s.eligibility));
+      var side = el('div','side');
+      side.appendChild(el('span','credit','0.5%'));
+      var open = s.status==='open', inWindow = !w || s.window===w;
+      var label = s.status==='full' ? 'Full' : s.status==='closed' ? 'Closed' : (w && !inWindow ? 'Opens in '+WINDOWS[s.window].label : (!w ? 'Opens soon' : 'Open'));
+      var pcls = s.status==='full' ? 'full' : s.status==='closed' ? 'closed' : (w && inWindow ? 'open' : 'soon');
+      if (s.example) side.appendChild(el('span','pill ex','Example'));
+      side.appendChild(el('span','pill '+pcls,label));
+      var go = el('a','btn','Start study');
+      if (open && inWindow && w && s.url){ go.href=s.url; go.target='_blank'; go.rel='noopener'; }
+      else { go.setAttribute('aria-disabled','true'); go.removeAttribute('href'); }
+      side.appendChild(go);
+      card.appendChild(main); card.appendChild(side); box.appendChild(card);
+    });
+  }
+
+  function renderHelp(){
+    var s = draft||state, t = document.getElementById('help-text'), c = document.getElementById('contact');
+    document.getElementById('term-h').textContent = s.term || 'Spring 2027';
+    c.textContent='';
+    t.textContent = (s.coordinator ? 'Contact '+s.coordinator+', the research pool coordinator.' : 'Contact the research pool coordinator.') +
+      ' If a study ended before you reached its credit link, use the backup credit form and name the study.';
+    if (s.email){
+      var m = el('span','mono',s.email); c.appendChild(m);
+      var b = el('button','copy','Copy email'); b.type='button';
+      b.addEventListener('click', function(){
+        var done=function(){ b.textContent='Copied'; setTimeout(function(){ b.textContent='Copy email'; },1500); };
+        try { navigator.clipboard.writeText(s.email).then(done, function(){ selectText(m); }); } catch(e){ selectText(m); }
+      });
+      c.appendChild(b);
+    }
+    if (s.creditUrl){ var a = el('a','btn ghost','Backup credit form'); a.href=s.creditUrl; a.target='_blank'; a.rel='noopener'; c.appendChild(a); }
+  }
+  function selectText(n){ var r=document.createRange(); r.selectNodeContents(n); var sel=getSelection(); sel.removeAllRanges(); sel.addRange(r); }
+
+  function render(){ renderWindows(); renderBoard(); renderHelp(); }
+
+  document.querySelectorAll('.tab').forEach(function(b){ b.addEventListener('click', function(){ view=b.dataset.w; renderBoard(); }); });
+
+  render();
+  fetch('studies.json', {cache:'no-store'}).then(function(r){ return r.json(); }).then(function(d){
+    state = d; state.studies = d.studies || []; render();
+  }).catch(function(){
+    document.getElementById('list').innerHTML = '';
+    var e = document.createElement('div'); e.className='empty';
+    e.textContent = 'The study list could not load. Refresh the page, or contact the research pool coordinator.';
+    document.getElementById('list').appendChild(e);
+  });
+})();
+</script>
+
+</body>
+</html>
