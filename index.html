@@ -155,6 +155,35 @@ textarea{font:400 17px/1.47 var(--text-face);letter-spacing:-0.374px;color:var(-
 .ed-actions{display:flex;flex-wrap:wrap;gap:var(--s-xs);justify-content:space-between;align-items:center}
 .check{display:flex;gap:var(--s-xs);align-items:center;font-weight:400}
 
+/* page tabs: Instructions first; Join and Studies unlock once the student confirms reading them. Keeps the page to one short screen per tab. */
+.hero{padding-block:var(--s-xxl) var(--s-lg)}
+.pagenav{position:sticky;top:0;z-index:4;background:color-mix(in srgb,var(--bg) 88%,transparent);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line);padding-inline:16px}
+.pagetabs{max-width:980px;margin:0 auto;display:flex;justify-content:center;gap:var(--s-xs);overflow-x:auto}
+.ptab{font:600 15px/1.2 var(--text-face);letter-spacing:-0.224px;background:none;border:0;border-bottom:3px solid transparent;color:var(--text-2);padding:14px 14px 11px;cursor:pointer;white-space:nowrap;min-height:44px}
+.ptab .n{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;border:1px solid currentColor;font-size:12px;margin-right:8px;font-variant-numeric:tabular-nums}
+.ptab[aria-selected="true"]{color:var(--link);border-bottom-color:var(--link)}
+.ptab[aria-disabled="true"]{opacity:.5}
+.ptab:focus-visible{outline:2px solid var(--link);outline-offset:-2px}
+.page{padding-block:var(--s-xl) var(--s-xxl)}
+.page .inner{gap:var(--s-lg)}
+.page h2{font-size:32px}
+.page .steps li{background:var(--band);padding:var(--s-md) 20px;gap:4px}
+.page .steps li::before{font-size:28px;color:var(--link)}
+.page .steps li div{color:var(--text-2)}
+.page .steps li div strong{color:var(--text)}
+.page .info{grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--s-sm)}
+.page .info > div{padding:var(--s-md) 20px;gap:4px}
+.page .info p{font-size:15px;line-height:1.45}
+.ack{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s-sm);background:var(--band);border-radius:var(--r-lg);padding:var(--s-md) 20px}
+.ack label{display:flex;gap:10px;align-items:center;font:600 17px/1.3 var(--text-face);cursor:pointer}
+.ack input{width:22px;height:22px;min-height:0;padding:0;accent-color:var(--accent)}
+.locked{text-align:center;color:var(--link);font-weight:600}
+.page .join-box{background:var(--band);border-radius:var(--r-lg);padding:var(--s-xl) var(--s-lg)}
+.help-tile{padding-block:var(--s-xl);border-top:1px solid var(--line)}
+.help-tile .inner{gap:var(--s-sm)}
+.help-tile h2{font-size:21px}
+footer{padding-block:var(--s-lg)}
+
 @media (max-width:1068px){h1{font-size:40px;line-height:1.1}}
 @media (max-width:640px){h1{font-size:34px}h2{font-size:28px;line-height:1.14}.tile{padding-block:var(--s-xxl)}.lede{font-size:21px}.study{grid-template-columns:1fr}.side{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-start;text-align:left}}
 @media (max-width:419px){h1{font-size:28px}}
@@ -163,49 +192,76 @@ textarea{font:400 17px/1.47 var(--text-face);letter-spacing:-0.374px;color:var(-
 
 </head>
 <body>
-<section class="tile band join" id="join" aria-labelledby="join-h" hidden>
-  <div class="inner">
-    <div class="head">
-      <span class="eyebrow">Start here</span>
-      <h2 id="join-h">Join the research pool.</h2>
-      <p>Sign up once each term before you take any study. It takes about two minutes.</p>
-      <a class="btn" id="join-btn" target="_blank" rel="noopener">Join the pool</a>
-    </div>
-  </div>
-</section>
-
 <div class="tile hero">
   <div class="inner">
     <span class="eyebrow">Florida State University · Department of Management</span>
     <h1>Research Studies, <span id="term-h">Spring 2027</span></h1>
-    <p class="lede">Take part in faculty and doctoral research for course credit. Every study is reviewed by FSU's Institutional Review Board, runs online, and takes about 30 minutes.</p>
     <div class="chips">
       <span class="chip">Each study earns <b>0.5%</b></span>
       <span class="chip">Up to <b>1%</b> per course</span>
       <span class="chip">One study per window</span>
     </div>
-    <div class="ctas">
-      <a class="btn" href="#board-h">See open studies</a>
-      <a class="btn ghost" href="#about">About the pool</a>
-    </div>
   </div>
 </div>
 
-<section class="tile band" aria-labelledby="win-h">
+<nav class="pagenav" aria-label="Research pool">
+  <div class="pagetabs" role="tablist">
+    <button class="ptab" role="tab" id="t-info" aria-controls="p-info" data-p="info"><span class="n">1</span>Instructions</button>
+    <button class="ptab" role="tab" id="t-join" aria-controls="p-join" data-p="join"><span class="n">2</span>Join the pool</button>
+    <button class="ptab" role="tab" id="t-studies" aria-controls="p-studies" data-p="studies"><span class="n">3</span>Studies</button>
+  </div>
+</nav>
+
+<section class="tile page" role="tabpanel" id="p-info" aria-labelledby="t-info">
   <div class="inner">
     <div class="head">
-      <h2 id="win-h">When studies are open.</h2>
-      <p class="status-line tagline" id="status-line"></p>
+      <h2>How it works.</h2>
+      <p>Take part in faculty and doctoral research for course credit. Every study is reviewed by FSU's Institutional Review Board, runs online, and takes about 30 minutes. Please read this before you sign up.</p>
     </div>
-    <div class="grid2" id="windows"></div>
+    <ol class="steps">
+      <li><div><strong>Join the pool once per term.</strong>You get a Pool ID such as <span class="mono">27JAN10_130042</span>. Save it.</div></li>
+      <li><div><strong>Start a study with your Pool ID.</strong>Studies only open for Pool IDs from this term's sign-up. You can stop at any point and still get credit for your time.</div></li>
+      <li><div><strong>Submit the credit form.</strong>It opens when the study ends. Save the completion ID it shows as your receipt.</div></li>
+      <li><div><strong>One course per study.</strong>Credit from a study counts toward one course only. Do not take the same study twice.</div></li>
+    </ol>
+    <div class="head"><h2 id="about">About the research pool.</h2></div>
+    <div class="info">
+      <div><h3>Taking part is voluntary</h3><p>You do not have to take part in any study. If you prefer not to, you can earn the same credit through an alternative assignment set by your instructor. Choosing not to take part will not affect your grade or your relationship with your instructor or the department.</p></div>
+      <div><h3>Who can take part</h3><p>Students 18 or older enrolled in a participating Management course. Students under 18 earn credit through the alternative assignment.</p></div>
+      <div><h3>What the forms collect</h3><p>Joining asks for your name, FSU ID and participating courses and gives you a Pool ID, a code based on when you joined. Start study checks your Pool ID, then opens the study. The credit form records your Pool ID, the study and your course, and gives you a completion ID as a receipt. No form records your IP address or location.</p></div>
+      <div><h3>Who sees it</h3><p>Each study receives only your Pool ID, never your name, and stores it with your answers. Only the pool coordinator and administrator can match a Pool ID to a name, and they never share that list, including with researchers. Your instructor receives only your name, FSU ID and total credit, not which studies you took.</p></div>
+      <div><h3>How long it is kept</h3><p>The list linking Pool IDs to names and all credit records are deleted after final grades are posted and the grade appeal period ends, no later than the end of the following semester. After that, a Pool ID in a study's data can no longer be linked to anyone. You may ask the coordinator to remove you from the pool at any time.</p></div>
+      <div><h3>Benefits and risks</h3><p>You will not benefit directly beyond course credit and first-hand experience of how management research is done. Risks are minimal. The main risk would be someone using the pool's list to connect your Pool ID to your study answers. The list is kept only by the pool coordinator and administrator in restricted FSU systems and is deleted each term.</p></div>
+    </div>
+    <p class="msg" style="text-align:center;max-width:720px;margin:0 auto">Questions about your rights as a research participant can go to the <a href="https://www.research.fsu.edu/hs" target="_blank" rel="noopener">FSU Office for Human Subjects Protection</a>. Joining the pool means you have read this information and agree to have your credit recorded as described.</p>
+    <div class="ack">
+      <label><input type="checkbox" id="ack"> I've read the instructions and the information above</label>
+      <button class="btn" id="to-join" type="button">Next: Join the pool</button>
+    </div>
+    <p class="locked" id="locked" hidden>Please read the instructions and tick the box first.</p>
   </div>
 </section>
 
-<section class="tile" aria-labelledby="board-h">
+<section class="tile page" role="tabpanel" id="p-join" aria-labelledby="t-join" hidden>
+  <div class="inner">
+    <div class="head join-box" id="join">
+      <h2 id="join-h">Join the research pool.</h2>
+      <p>Sign up once each term, before your first study. It takes about two minutes and opens in a new tab. Write down the Pool ID it gives you.</p>
+      <a class="btn" id="join-btn" target="_blank" rel="noopener">Open the sign-up form</a>
+    </div>
+    <p class="msg" style="text-align:center">Already signed up this term? <a href="#studies" id="to-studies">Go to the studies</a>.</p>
+  </div>
+</section>
+
+<section class="tile page" role="tabpanel" id="p-studies" aria-labelledby="t-studies" hidden>
   <div class="inner">
     <div class="head">
       <h2 id="board-h">Studies.</h2>
-      <p>First come, first served. A study closes when it reaches its number of participants.</p>
+      <p class="status-line tagline" id="status-line"></p>
+    </div>
+    <div class="grid2" id="windows"></div>
+    <div class="head">
+      <p>First come, first served. Each study opens in a new tab and asks for your Pool ID.</p>
       <div class="tabs" role="group" aria-label="Show studies for">
         <button class="tab" id="tab-1" data-w="1" aria-pressed="false">Window 1</button>
         <button class="tab" id="tab-2" data-w="2" aria-pressed="false">Window 2</button>
@@ -216,46 +272,9 @@ textarea{font:400 17px/1.47 var(--text-face);letter-spacing:-0.374px;color:var(-
   </div>
 </section>
 
-<section class="tile dark" aria-labelledby="credit-h">
+<section class="tile help-tile" aria-labelledby="help-h">
   <div class="inner">
-    <div class="head">
-      <h2 id="credit-h">How you get credit.</h2>
-      <p>Four steps, and your study answers never carry your name.</p>
-    </div>
-    <ol class="steps">
-      <li><div><strong>Join the pool once per term.</strong>The sign-up form asks for your name, FSU ID and the participating courses you are taking, then gives you a Pool ID such as <span class="mono">27JAN10_130042</span>. Save it.</div></li>
-      <li><div><strong>Pick a study and open its link.</strong>Read the consent page. You can stop at any point and still get credit for the time you spent.</div></li>
-      <li><div><strong>Use the credit link when you finish or stop.</strong>It opens a separate short form for your Pool ID and the course you want the credit in. Your study answers are never stored with your name.</div></li>
-      <li><div><strong>Your instructor sees only your total.</strong>The pool administrator sends each instructor students' credit totals after each window, never which studies you took.</div></li>
-    </ol>
-    <div class="notes">
-      <div class="note"><h3>One course per study</h3><p>If you are in two participating courses, credit from a study counts toward only one of them. Do not take the same study twice.</p></div>
-      <div class="note"><h3>Prefer not to take part?</h3><p>You can earn the same credit through an alternative assignment set by your instructor. Check your syllabus; it is due by the end of Window 2.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="tile band" aria-labelledby="about-h" id="about">
-  <div class="inner">
-    <div class="head">
-      <h2 id="about-h">About the research pool.</h2>
-      <p>Please read this before taking part. Each study also has its own consent page explaining what you will be asked to do.</p>
-    </div>
-    <div class="info">
-      <div><h3>Taking part is voluntary</h3><p>You do not have to take part in any study. If you prefer not to, you can earn the same credit through an alternative assignment set by your instructor. Choosing not to take part will not affect your grade or your relationship with your instructor or the department.</p></div>
-      <div><h3>Who can take part</h3><p>Students 18 or older enrolled in a participating Management course. Students under 18 earn credit through the alternative assignment.</p></div>
-      <div><h3>What the forms collect</h3><p>Joining asks for your name, FSU ID and participating courses and gives you a Pool ID, a code based on when you joined. Start study checks your Pool ID, then opens the study. The credit form records your Pool ID, the study and your course, and gives you a completion ID as a receipt. No form records your IP address or location.</p></div>
-      <div><h3>Who sees it</h3><p>Each study receives only your Pool ID, never your name, and stores it with your answers. Only the pool coordinator and administrator can match a Pool ID to a name, and they never share that list, including with researchers. Your instructor receives only your name, FSU ID and total credit, not which studies you took.</p></div>
-      <div><h3>How long it is kept</h3><p>The list linking Pool IDs to names and all credit records are deleted after final grades are posted and the grade appeal period ends, no later than the end of the following semester. After that, a Pool ID in a study's data can no longer be linked to anyone. You may ask the coordinator to remove you from the pool at any time.</p></div>
-      <div><h3>Benefits and risks</h3><p>You will not benefit directly beyond course credit and first-hand experience of how management research is done. Risks are minimal. The main risk would be someone using the pool's list to connect your Pool ID to your study answers. The list is kept only by the pool coordinator and administrator in restricted FSU systems and is deleted each term.</p></div>
-    </div>
-    <p class="msg" style="text-align:center;max-width:720px;margin:0 auto">Questions about your rights as a research participant can go to the <a href="https://www.research.fsu.edu/hs" target="_blank" rel="noopener">FSU Office for Human Subjects Protection</a>. Joining the pool means you have read this information and agree to have your credit recorded as described.</p>
-  </div>
-</section>
-
-<section class="tile" aria-labelledby="help-h">
-  <div class="inner">
-    <div class="head"><h2 id="help-h">Questions or missing credit.</h2></div>
+    <div class="head"><h2 id="help-h">Questions or missing credit?</h2></div>
     <p id="help-text"></p>
     <div class="contact" id="contact"></div>
   </div>
@@ -373,6 +392,42 @@ textarea{font:400 17px/1.47 var(--text-face);letter-spacing:-0.374px;color:var(-
   function render(){ renderWindows(); renderBoard(); renderHelp(); }
 
   document.querySelectorAll('.tab').forEach(function(b){ b.addEventListener('click', function(){ view=b.dataset.w; renderBoard(); }); });
+
+  // Page tabs. Join and Studies stay locked until the student ticks the "I've read" box;
+  // the tick is remembered in this browser so returning students go straight through.
+  var ack = document.getElementById('ack'), KEY = 'pool-read-instructions';
+  try { ack.checked = localStorage.getItem(KEY) === '1'; } catch(e){}
+  function showPage(p, focus){
+    var blocked = p !== 'info' && !ack.checked;
+    document.getElementById('locked').hidden = !blocked;
+    if (blocked){ p = 'info'; ack.focus(); }
+    document.querySelectorAll('.ptab').forEach(function(t){
+      var on = t.dataset.p === p;
+      t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1;
+      if (t.dataset.p !== 'info') t.setAttribute('aria-disabled', String(!ack.checked));
+      document.getElementById('p-'+t.dataset.p).hidden = !on;
+      if (on && focus) t.focus();
+    });
+    var hash = p === 'info' ? '' : '#'+p;
+    if (location.hash !== hash) history.replaceState(null, '', location.pathname + location.search + hash);
+  }
+  function pageFromHash(){ var h = location.hash.slice(1); return (h==='join'||h==='studies') ? h : 'info'; }
+  function goTo(p){ showPage(p); if (ack.checked) document.querySelector('.pagenav').scrollIntoView(); }
+  document.querySelectorAll('.ptab').forEach(function(t, i, tabs){
+    t.addEventListener('click', function(){ goTo(t.dataset.p); });
+    t.addEventListener('keydown', function(e){
+      if (e.key!=='ArrowRight' && e.key!=='ArrowLeft') return;
+      e.preventDefault(); showPage(tabs[(i + (e.key==='ArrowRight' ? 1 : tabs.length-1)) % tabs.length].dataset.p, true);
+    });
+  });
+  ack.addEventListener('change', function(){
+    try { localStorage.setItem(KEY, ack.checked ? '1' : '0'); } catch(e){}
+    showPage('info');
+  });
+  document.getElementById('to-join').addEventListener('click', function(){ goTo('join'); });
+  document.getElementById('to-studies').addEventListener('click', function(e){ e.preventDefault(); goTo('studies'); });
+  addEventListener('hashchange', function(){ showPage(pageFromHash()); });
+  showPage(pageFromHash());
 
   render();
   fetch('studies.json', {cache:'no-store'}).then(function(r){ return r.json(); }).then(function(d){
